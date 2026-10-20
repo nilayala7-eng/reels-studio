@@ -22,4 +22,5 @@ Cuando el usuario indique una carpeta de su PC, procesar cada vídeo de esa carp
 4. Si es horizontal, `prep.py` recorta al centro; si la persona no está centrada, ajustar el crop en `tools/cut_silences.py`.
 
 ## Reels de referencia
+Las referencias ya analizadas están en `referencias/` (fotogramas y transcripción). Para añadir una nueva:
 `python -m yt_dlp -o "refs/%(id)s.%(ext)s" <url>`, sacar fotogramas con `ffmpeg -i refs/x.mp4 -vf "fps=1,scale=270:-1,tile=6x2" refs/x_%02d.jpg`, transcribir y apuntar el estilo en `estilo.md`.
