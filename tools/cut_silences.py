@@ -2,7 +2,7 @@
 
 Uso: python3 -I cut_silences.py <video> <words.json> <salida.mp4> [max_gap=0.3] [pad=0.08]
 """
-import json, subprocess, sys
+import json, os, subprocess, sys, tempfile
 
 src, words_path, out = sys.argv[1:4]
 max_gap = float(sys.argv[4]) if len(sys.argv) > 4 else 0.3
@@ -22,9 +22,15 @@ parts = "".join(
     for i, (s, e) in enumerate(segs))
 concat = "".join(f"[v{i}][a{i}]" for i in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=1[vc][a];" \
     "[vc]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30[v]"
-subprocess.run(
-    ["ffmpeg", "-loglevel", "error", "-y", "-i", src, "-filter_complex", parts + concat,
-     "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "18", "-preset", "fast", "-c:a", "aac", "-b:a", "192k", out],
-    check=True)
+# Los filtros van en un archivo: con vídeos largos el comando superaría el límite de Windows.
+with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+    f.write(parts + concat)
+try:
+    subprocess.run(
+        ["ffmpeg", "-loglevel", "error", "-y", "-i", src, "-filter_complex_script", f.name,
+         "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "18", "-preset", "fast", "-c:a", "aac", "-b:a", "192k", out],
+        check=True)
+finally:
+    os.remove(f.name)
 kept = sum(e - s for s, e in segs)
 print(f"{len(segs)} tramos, {kept:.1f}s conservados")
