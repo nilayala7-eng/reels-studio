@@ -1,0 +1,28 @@
+{
+  "video": "test.mp4",
+  "words": "test.words.json",
+  "durationSeconds": 20,
+  "captionStyle": "kinetic",
+  "captionPosition": "top",
+  "keywords": ["gratis", "Brag", "música", "motion", "listo"],
+  "pills": [
+    { "at": 5.2, "until": 6.9, "text": "3 herramientas" },
+    { "at": 7.6, "until": 8.7, "text": "GRATIS", "variant": "pixel" },
+    { "at": 12.6, "until": 15.5, "text": "Tu vídeo" },
+    { "at": 13.4, "until": 15.5, "text": "Logos" },
+    { "at": 14.0, "until": 15.5, "text": "Tu página web" }
+  ],
+  "inserts": [
+    { "type": "number", "at": 3.6, "until": 5.2, "top": "solo necesitas", "value": 3, "word": "herramientas", "items": ["Brag", "HyperFrames", "Remotion"] },
+    { "type": "logo", "at": 9.7, "until": 11.0, "name": "Brag", "tagline": "vídeos de lanzamiento" },
+    { "type": "checklist", "at": 19.0, "until": 20, "title": "brag.output", "items": ["música", "textos", "efectos de sonido"] },
+    { "type": "terminal", "at": 16.0, "until": 18.9, "command": "npx skills add remotion-dev/skills" }
+  ],
+  "zooms": [
+    { "at": 0, "scale": 1.0 },
+    { "at": 6.9, "scale": 1.12 },
+    { "at": 8.7, "scale": 1.0 },
+    { "at": 11.0, "scale": 1.15 },
+    { "at": 15.5, "scale": 1.0 }
+  ]
+}

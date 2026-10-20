@@ -1,0 +1,6 @@
+node_modules
+models
+raw
+out
+public/*.mp4
+public/*.words.json
